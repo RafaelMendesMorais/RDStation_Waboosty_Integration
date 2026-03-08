@@ -1,7 +1,7 @@
 export interface Lead { 
     nome?: string
     email?: string
-    telefone: string
+    phone: string
     origem?:  string
     programa?: string
 

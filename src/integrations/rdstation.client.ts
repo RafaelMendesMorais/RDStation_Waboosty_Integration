@@ -5,27 +5,33 @@ import { env } from '../config/env';
 import { logger } from '../utils/logger';
 
 export class rdStationClient {
-
-    static async UpdateLeadStatus(lead: WaboostyWebhookInput) {
-
-        const payload = {
-            status: lead.status
-        }
-
-        
-
-        const response = await axios.patch(
-            `${env.rdApiUrl}/platform/contacts/phone:${lead.phone}`, payload,
-            {
-                headers: {
-                    Authorization: `Bearer ${env.rdApiToken}`,
-                    "Content-Type": "application/json"
-                }
+    static async updateLeadStatus(lead: WaboostyWebhookInput) {
+        try {
+            const payload = {
+                tags: [lead.status]
             }
-        )
-
-        return response.data
 
 
+
+            const response = await axios.patch(
+                `${env.rdApiUrl}/platform/contacts/phone:${lead.phone}`, payload,
+                {
+                    headers: {
+                        Authorization: `Bearer ${env.rdApiToken}`,
+                        "Content-Type": "application/json"
+                    }
+                }
+            )
+
+            return response.data
+
+        } catch (error) {
+
+            logger.error("Erro ao atualizar lead no RD Station", {
+                phone: lead.phone
+            })
+
+
+        }
     }
 }

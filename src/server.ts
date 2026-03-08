@@ -10,11 +10,8 @@ app.use(express.json());
 
 app.use('/webhook', webhookRoutes)
 
-
-app.get('/', (req,res) => {
-
-    res.send('Hello World');
-})
+ // Rotas:  http://localhost:3333/webhook/rd
+ //         http://localhost:3333/webhook/waboosty
 
 app.use(errorMiddleware)
 

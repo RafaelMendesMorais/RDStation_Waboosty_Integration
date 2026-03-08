@@ -1,17 +1,46 @@
-# RD Station + Waboosty Integration
+# Integração RD Station + Waboosty
 
-API de integração entre RD Station e Waboosty.
+Projeto de integração entre RD Station Marketing e Waboosty.
 
-## Fluxo
+O objetivo é:
 
-1. RD Station envia webhook
+1. Receber dados de leads da RD Station
+2. Enviar esses dados para a Waboosty
+3. Receber atualizações de status da Waboosty
+4. Atualizar o lead na RD Station
 
-2. API recebe lead
+---
 
-3. API envia lead para Waboosty
+# Fluxo da Integração
 
-4. Waboosty retorna status
+RD Station
+↓
+Backend (Node.js)
+↓
+Waboosty
 
-5. API atualiza lead no RD Station 
+Waboosty
+↓
+Webhook
+↓
+Backend
+↓
+Atualização na RD Station
 
- 
+---
+
+# Tecnologias Utilizadas
+
+- Node.js
+- Express
+- TypeScript
+- Zod (validação)
+- Axios (requisições HTTP)
+
+---
+
+# Como rodar o projeto
+
+1. npm install
+2. npm run dev
+3. Servidor iniciará em: http://localhost:3333

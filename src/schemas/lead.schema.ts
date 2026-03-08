@@ -1,11 +1,15 @@
 import { z } from 'zod'
 
 export const LeadSchema = z.object({
-    nome: z.string().optional(),
-    email: z.email().optional(),
-    phone: z.string(),
-    origem: z.string().optional(), 
-    programa: z.string().optional()
+    name: z.string().min(2, "Nome muito curto"),
+
+    email: z.string().email("Email inválido").optional(),
+
+    phone: z.string().regex(/^55\d{10,11}$/, "Telefone deve estar no formato 55DDDNÚMERO"),
+
+    origem: z.string().min(2, "Origem inválida").optional(), 
+
+    programa: z.string().min(2, "Programa inválido").optional()
 })
 
 export type LeadInput = z.infer< typeof LeadSchema>

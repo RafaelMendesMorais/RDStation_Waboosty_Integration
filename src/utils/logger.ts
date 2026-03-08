@@ -1,10 +1,10 @@
 export const logger = { 
-    info: (message: string) => {
-        console.log(`[INFO] ${message}`)
+    info: (message: string, data?: unknown ) => {
+        console.log(`[INFO] ${message}`, data ?? "")
     },
 
-    error: ( message: string) => { 
-        console.error(`[Error] ${message}`)
+    error: ( message: string, data?: unknown) => { 
+        console.log(`[ERROR] ${message}`, data ?? "")
     }
         
 }
