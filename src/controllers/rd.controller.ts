@@ -5,9 +5,17 @@ import { leadService } from "../services/lead.service";
 
 export async function receiveRdWebhook(req: Request, res: Response, next: NextFunction) {
     try {
-        const validadedData = LeadSchema.parse(req.body)
+        const validatedData = LeadSchema.safeParse(req.body)
 
-        await leadService.sendToWaboosty(validadedData)
+        if(!validatedData.success){
+            return res.status(400).json({
+                error: validatedData.error.format()
+            })
+        }
+
+        await leadService.sendToWaboosty(validatedData.data)
+
+        
 
         return res.status(200).json({
             Message: "Lead recebido e enviado para Waboosty"

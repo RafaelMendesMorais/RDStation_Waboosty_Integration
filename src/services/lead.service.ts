@@ -1,3 +1,4 @@
+import { rdStationClient } from "../integrations/rdstation.client";
 import { WaboostyClient } from "../integrations/waboosty.client";
 import { LeadInput } from "../schemas/lead.schema";
 import { WaboostyWebhookInput } from "../schemas/waboosty.schema";
@@ -9,6 +10,6 @@ export class leadService{
     }
 
     static async updateLeadStatus(data: WaboostyWebhookInput) {
-        
+        await rdStationClient.UpdateLeadStatus(data)
     }
 }
