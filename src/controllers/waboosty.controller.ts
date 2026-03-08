@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { waboostyWebhookSchema } from "../schemas/waboosty.schema";
 import { leadService } from "../services/lead.service";
+import { logger } from "../utils/logger";
 
 
 export async function receiveWaboostyWebhook( req: Request, res: Response, next: NextFunction){
@@ -20,6 +21,8 @@ export async function receiveWaboostyWebhook( req: Request, res: Response, next:
         })
         
     } catch (error) {
+        logger.error("Error processing RD webhook")
+        
         next(error)
     }
 }

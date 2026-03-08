@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { LeadSchema } from "../schemas/lead.schema";
 import { leadService } from "../services/lead.service";
+import { logger } from "../utils/logger";
 
 
 export async function receiveRdWebhook(req: Request, res: Response, next: NextFunction) {
@@ -22,6 +23,8 @@ export async function receiveRdWebhook(req: Request, res: Response, next: NextFu
         })
         
     } catch (error) {
+        logger.error("Failed to send lead to Waboosty")
+
         next(error)
     }
     
