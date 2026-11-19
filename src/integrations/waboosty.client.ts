@@ -1,48 +1,16 @@
 import axios from "axios";
-import { env } from "../config/env"
+import { env } from "../config/env";
 import { LeadInput } from "../schemas/lead.schema";
-import { logger } from "../utils/logger";
 
 export class WaboostyClient {
-
     static async createLead(lead: LeadInput) {
-        try {
-            const payload = {
-                lead: {
-                    name: lead.name,
-                    phone: lead.phone,
-                    email: lead.email,
-                    variables: [
-                        {
-                            name: 'origem',
-                            content: lead.origem
-                        },
+        const variables = [];
+        if (lead.origem) variables.push({ name: "origem", content: lead.origem });
+        if (lead.programa) variables.push({ name: "program", content: lead.programa });
+        if (lead.rd_uuid) variables.push({ name: "rd_uuid", content: lead.rd_uuid });
 
-                        {
-                            name: 'program',
-                            content: lead.programa
-                        }
-                    ]
-                }
-
-            }
-
-            const response = await axios.post(env.waBoostyWebhookUrl, payload,
-                {
-                    timeout: 5000
-                })
-
-            logger.info("Lead enviado para Waboosty", lead.phone)
-            return response.data
-
-        } catch (error: any) {
-            logger.error("Erro ao enviar lead para Waboosty", error.response?.data || error.message)
-
-            throw new Error("Falha ao enviar lead para Waboosty")
-
-        }
-
+        await axios.post(env.waBoostyWebhookUrl, {
+            lead: { name: lead.name, phone: lead.phone, email: lead.email, variables }
+        }, { timeout: 5000 });
     }
-
-
 }

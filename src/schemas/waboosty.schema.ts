@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
 export const waboostyWebhookSchema = z.object({
+    rd_uuid: z.uuid().optional(),
     phone: z.string(),
     status: z.enum([
     "em_negociacao",

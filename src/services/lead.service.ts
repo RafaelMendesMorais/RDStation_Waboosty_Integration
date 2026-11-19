@@ -1,4 +1,4 @@
-import { rdStationClient } from "../integrations/rdstation.client";
+import { RdStationClient } from "../integrations/rdstation.client";
 import { WaboostyClient } from "../integrations/waboosty.client";
 import { LeadInput } from "../schemas/lead.schema";
 import { WaboostyWebhookInput } from "../schemas/waboosty.schema";
@@ -10,6 +10,6 @@ export class LeadService{
     }
 
     static async updateLeadStatus(data: WaboostyWebhookInput) {
-        await rdStationClient.updateLeadStatus(data)
+        await RdStationClient.updateLeadStatus(data)
     }
 }
